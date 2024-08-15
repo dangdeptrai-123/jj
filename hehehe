@@ -1,0 +1,26 @@
+pip install moviepy
+from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+
+def create_meme(video_path, output_path, text, position=('center', 'bottom'), duration=5):
+    # Tải video
+    video = VideoFileClip(video_path)
+
+    # Tạo clip văn bản
+    txt_clip = TextClip(text, fontsize=70, color='white', bg_color='black', size=video.size)
+    txt_clip = txt_clip.set_position(position).set_duration(duration)
+
+    # Ghép video với văn bản
+    video_meme = CompositeVideoClip([video, txt_clip])
+
+    # Xuất video meme
+    video_meme.write_videofile(output_path, codec='libx264', fps=24)
+
+# Ví dụ sử dụng
+if __name__ == "__main__":
+    video_path = "input_video.mp4"  # Đường dẫn video gốc
+    output_path = "meme_video.mp4"   # Đường dẫn video meme đầu ra
+    text = "Đây là một meme!"         # Văn bản muốn thêm vào video
+
+    create_meme(video_path, output_path, text)
+
+
